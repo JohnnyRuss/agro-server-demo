@@ -16,8 +16,8 @@ const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN;
 const APP_ORIGINS = [CLIENT_ORIGIN];
 
 // AUTH
-const JWT_ACCESS_SECRET = process.env.JWT_ACCESS_SECRET;
-const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_sECRET;
+const JWT_ACCESS_SECRET = process.env.JWT_ACCESS_SECRET || "";
+const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_sECRET || "";
 
 // S3
 const AWS_S3_BUCKET_NAME = process.env.AWS_S3_BUCKET_NAME || "";

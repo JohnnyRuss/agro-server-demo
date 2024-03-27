@@ -35,6 +35,8 @@ class JWT {
 
     const refreshToken = jwt.sign(payload, this.refreshSecret);
 
+    console.log({ access: this.accessSecret, refresh: this.refreshSecret });
+
     const cookieOptions: {
       httpOnly: boolean;
       secure: boolean;
