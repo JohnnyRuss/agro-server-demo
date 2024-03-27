@@ -54,6 +54,7 @@ class ErrorUtils extends MongooseError {
       res.status(error.statusCode).json({
         status: error.status,
         message: error.message,
+        stack: error.stack,
       });
     else {
       res.status(500).json({
