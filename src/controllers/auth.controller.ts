@@ -16,13 +16,13 @@ export const signIn = Async(async (req, res, next) => {
   if (!isValidPassword)
     return next(new AppError(404, "incorrect email or password"));
 
-  const { accessToken } = JWT.assignToken({
-    signature: {
-      _id: user._id.toString(),
-      email: user.email,
-    },
-    res,
-  });
+  // const { accessToken } = JWT.assignToken({
+  //   signature: {
+  //     _id: user._id.toString(),
+  //     email: user.email,
+  //   },
+  //   res,
+  // });
 
   const userData = {
     _id: user._id,
@@ -30,7 +30,7 @@ export const signIn = Async(async (req, res, next) => {
     username: user.username,
   };
 
-  res.status(201).json({ user: userData, accessToken });
+  res.status(201).json({ user: userData, accessToken: userData });
 });
 
 export const logout = Async(async (req, res, next) => {
