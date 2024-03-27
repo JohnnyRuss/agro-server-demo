@@ -11,34 +11,34 @@ import { ReqUserT } from "../index";
 
 class JWT {
   assignToken({ signature, res }: { signature: ReqUserT; res: Response }): {
-    accessToken: string;
+    accessToken: any;
   } {
     const payload: ReqUserT = {
       _id: signature._id.toString(),
       email: signature.email,
     };
 
-    const accessToken = jwt.sign(payload, JWT_ACCESS_SECRET, {
-      expiresIn: "1h",
-    });
+    // const accessToken = jwt.sign(payload, JWT_ACCESS_SECRET, {
+    //   expiresIn: "1h",
+    // });
 
-    const refreshToken = jwt.sign(payload, JWT_REFRESH_SECRET);
+    // const refreshToken = jwt.sign(payload, JWT_REFRESH_SECRET);
 
-    const cookieOptions: {
-      httpOnly: boolean;
-      secure: boolean;
-      sameSite?: boolean;
-    } = {
-      httpOnly: true,
-      secure: false,
-      sameSite: false,
-    };
+    // const cookieOptions: {
+    //   httpOnly: boolean;
+    //   secure: boolean;
+    //   sameSite?: boolean;
+    // } = {
+    //   httpOnly: true,
+    //   secure: false,
+    //   sameSite: false,
+    // };
 
     // if (NODE_MODE === "PROD") cookieOptions.secure = true;
 
-    res.cookie("authorization", refreshToken, cookieOptions);
+    // res.cookie("authorization", refreshToken, cookieOptions);
 
-    return { accessToken };
+    return { accessToken: { payload, JWT_REFRESH_SECRET, JWT_ACCESS_SECRET } };
   }
 
   async verifyToken(token: string, refresh?: boolean): Promise<jwt.JwtPayload> {
