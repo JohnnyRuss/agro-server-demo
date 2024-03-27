@@ -1,9 +1,10 @@
+import jwt from "jsonwebtoken";
+
 import {
   NODE_MODE,
   JWT_ACCESS_SECRET,
   JWT_REFRESH_SECRET,
 } from "../config/env";
-import jwt from "jsonwebtoken";
 import { Response } from "express";
 import { promisify } from "util";
 import { ReqUserT } from "../index";
@@ -33,7 +34,7 @@ class JWT {
       sameSite: false,
     };
 
-    if (NODE_MODE === "PROD") cookieOptions.secure = true;
+    // if (NODE_MODE === "PROD") cookieOptions.secure = true;
 
     res.cookie("authorization", refreshToken, cookieOptions);
 
