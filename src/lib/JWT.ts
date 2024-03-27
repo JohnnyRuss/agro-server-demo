@@ -9,18 +9,6 @@ import { promisify } from "util";
 import { ReqUserT } from "../index";
 
 class JWT {
-  private accessSecret;
-  private refreshSecret;
-  nodeMode;
-  expiresIn;
-
-  constructor() {
-    this.accessSecret = JWT_ACCESS_SECRET || "";
-    this.refreshSecret = JWT_REFRESH_SECRET || "";
-    this.nodeMode = NODE_MODE || "DEV";
-    this.expiresIn = "1h";
-  }
-
   assignToken({ signature, res }: { signature: ReqUserT; res: Response }): {
     accessToken: string;
   } {
@@ -29,13 +17,11 @@ class JWT {
       email: signature.email,
     };
 
-    const accessToken = jwt.sign(payload, this.accessSecret, {
-      expiresIn: this.expiresIn,
+    const accessToken = jwt.sign(payload, JWT_ACCESS_SECRET, {
+      expiresIn: "1h",
     });
 
-    const refreshToken = jwt.sign(payload, this.refreshSecret);
-
-    console.log({ access: this.accessSecret, refresh: this.refreshSecret });
+    const refreshToken = jwt.sign(payload, JWT_REFRESH_SECRET);
 
     const cookieOptions: {
       httpOnly: boolean;
@@ -66,7 +52,7 @@ class JWT {
 
       const verifiedToken = await validator(
         token,
-        refresh ? this.refreshSecret : this.accessSecret
+        refresh ? JWT_REFRESH_SECRET : JWT_ACCESS_SECRET
       );
 
       return verifiedToken;
