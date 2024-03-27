@@ -59,6 +59,7 @@ class ErrorUtils extends MongooseError {
     else {
       res.status(500).json({
         status: "error",
+        stack: error.stack,
         message: error.message || "something went very wrong !",
       });
     }
