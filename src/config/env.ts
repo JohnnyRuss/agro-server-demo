@@ -7,7 +7,10 @@ const NODE_MODE = process.env.NODE_MODE;
 const PORT = process.env.PORT || 4000;
 
 // DB
-const DB_APP_CONNECTION = process.env.DB_APP_CONNECTION || "";
+const DB_APP_CONNECTION =
+  NODE_MODE === "DEV"
+    ? process.env.DB_APP_CONNECTION || ""
+    : process.env.DB_PROD_APP_CONNECTION || "";
 
 // APP ORIGINS
 const APP_ORIGIN = process.env.APP_ORIGIN;

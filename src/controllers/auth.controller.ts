@@ -63,11 +63,7 @@ export const refresh = Async(async (req, res, next) => {
 });
 
 async function createAdmin() {
-  await new User({
-    username: "agro",
-    email: "agro@io.com",
-    password: "agro.133",
-  }).save();
+  await new User({ username: "", email: "", password: "" }).save();
 }
 
 // createAdmin();
