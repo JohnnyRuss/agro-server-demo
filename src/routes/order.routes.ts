@@ -8,6 +8,11 @@ Router.route("/")
   .post(orderController.createOrder)
   .get(checkAuth, orderController.getOrders);
 
-Router.route("/:orderId").get(orderController.getOrder);
+Router.route("/:orderId").get(checkAuth, orderController.getOrder);
+
+Router.route("/:orderId/status").post(
+  checkAuth,
+  orderController.treeTrunkOrder
+);
 
 export default Router;

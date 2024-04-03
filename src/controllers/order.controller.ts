@@ -6,7 +6,14 @@ import { OrderT, OrderProductT } from "../types/models/order.types";
 export const createOrder = Async(async (req, res, next) => {
   const body = req.body;
 
+  const ordersCount = await Order.countDocuments();
+
+  function formatNumberWithLeadingZeros() {
+    return String(ordersCount + 1).padStart(8, "0");
+  }
+
   await new Order({
+    invoiceNumber: `INV:${formatNumberWithLeadingZeros()}-${Date.now()}`,
     products: body.products.map((product: OrderProductT) => {
       const candidateProduct: Partial<OrderProductT> = {
         size: product.size,
@@ -164,4 +171,15 @@ export const getOrder = Async(async (req, res, next) => {
   };
 
   res.status(200).json(modifiedOrder);
+});
+
+export const treeTrunkOrder = Async(async (req, res, next) => {
+  const { orderId } = req.params;
+  const { status } = req.body;
+
+  const order = await Order.findByIdAndUpdate(orderId, { $set: { status } });
+
+  if (!order) return next(new AppError(404, "Order does not exists"));
+
+  res.status(201).json("Order status is updated");
 });

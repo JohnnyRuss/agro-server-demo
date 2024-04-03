@@ -31,6 +31,7 @@ const OrderSchema = new Schema<OrderT, OrderModelT, OrderMethodsT>(
         size: String,
       },
     ],
+    invoiceNumber: String,
     customerName: String,
     customerAddress: String,
     customerPhone: {
@@ -42,7 +43,7 @@ const OrderSchema = new Schema<OrderT, OrderModelT, OrderMethodsT>(
     totalPrice: Number,
     status: {
       type: String,
-      enum: ["PENDING", "REJECTED", "APPROVED"],
+      enum: ["PENDING", "REJECTED", "SUCCESS"],
       default: "PENDING",
     },
   },

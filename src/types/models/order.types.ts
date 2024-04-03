@@ -1,6 +1,7 @@
 import { Model, Document, Types as MongooseTypes } from "mongoose";
 
 interface OrderT extends Document {
+  invoiceNumber: string;
   products: Array<OrderProductT>;
   customerName: string;
   customerAddress: string;
